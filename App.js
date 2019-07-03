@@ -14,13 +14,12 @@ import DeckView from "./components/DeckView";
 import { Provider, connect } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers";
-//import AppNavigator from "./components/AppNavigation";
 
-export function App() {
-  const store = createStore(reducer);
+const store = createStore(reducer);
+export default function App() {
   return (
     <Provider store={store}>
-      {/* <View style={styles.container}> */} <AppContainer /> {/* </View> */}
+      <AppContainer />
     </Provider>
   );
 }
@@ -76,5 +75,5 @@ const MainNavigator = createStackNavigator({
     }
   }
 });
-const AppContainer = createAppContainer(Home);
-export default AppContainer;
+const AppContainer = createAppContainer(MainNavigator);
+//export default AppContainer;

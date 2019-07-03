@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { getData } from "../utils/api";
 import { connect } from "react-redux";
+import { getDecks } from "../utils/api";
+import { recieveDecks } from "../actions";
 
 class DeckList extends Component {
   state = {};
   render() {
-    //console.log("Hey zubair redux is working", this.props);
-
     const decks = getData();
-    // console.log("Testing console zubair: ", decks);
+    console.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -44,6 +44,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     decks: state
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    recieveAllDecks: decks => dispatch(recieveDecks)
   };
 };
 export default connect(mapStateToProps)(DeckList);
