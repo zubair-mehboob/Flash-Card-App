@@ -7,6 +7,7 @@ class Result extends Component {
   render() {
     let obtainMarks = this.props.navigation.state.params.entryId;
     let totalMarks = this.props.navigation.state.params.questionLength;
+    const deckName = this.props.navigation.state.params.deckName;
     obtainMarks = obtainMarks * 100;
     totalMarks = totalMarks * 100;
     const score = Math.round((obtainMarks / totalMarks) * 100);
@@ -22,6 +23,28 @@ class Result extends Component {
         <Text style={{ fontSize: 40, textAlign: "center", color: "navy" }}>
           {`${score}% `}
         </Text>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() =>
+            this.props.navigation.navigate("Quize", {
+              deckName,
+              Quize: "Quize"
+            })
+          }
+        >
+          <Text style={styles.txt}>Restart Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() =>
+            this.props.navigation.navigate("DeckView", {
+              deckName,
+              Quize: "Quize"
+            })
+          }
+        >
+          <Text style={styles.txt}>Back To Deck</Text>
+        </TouchableOpacity>
       </View>
     );
   }

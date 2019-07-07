@@ -17,8 +17,8 @@ class Quize extends Component {
     const questions = decks[deckName].questions;
     const { questionNum, score } = this.state;
     if (questionNum < questions.length - 1) {
-      console.log("CorrectAnswer: ", questions[questionNum].correctAnswer);
-      console.log("UserGues: ", userGues);
+      //console.log("CorrectAnswer: ", questions[questionNum].correctAnswer);
+      //console.log("UserGues: ", userGues);
       this.setState(prevState => {
         return {
           questionNum: prevState.questionNum + 1,
@@ -30,7 +30,7 @@ class Quize extends Component {
         };
       });
     } else {
-      console.log("in else");
+      //console.log("in else");
       this.setState(prevState => {
         return {
           answerFlag: false,
@@ -43,22 +43,38 @@ class Quize extends Component {
 
       this.props.navigation.navigate("Result", {
         entryId: this.state.score,
-        questionLength: decks[deckName].questions.length
+        questionLength: decks[deckName].questions.length,
+        deckName: deckName
       });
       //console.log("Questions End");
     }
     // console.log(questions);
   };
+  // componentDidMount() {
+  //   refresh = () => {
+  //     this.setState({ score: 0, questionNum: 0 });
+  //   };
+  // }
 
   render() {
+    // const Quize = this.props.navigation.state.params.Quize;
+    // console.log("Quize", Quize);
+
+    // if (Quize) {
+    //   console.log("Invoked refresh");
+    //   refresh();
+    // }
     const { decks } = this.props;
     const deckName = this.props.navigation.state.params.entryId;
     const questions = decks[deckName].questions;
     const { questionNum, answerFlag, score } = this.state;
-    console.log("from render score", score);
+    //console.log("from render score", score);
 
     return (
       <View style={styles.container}>
+        <Text
+          style={{ color: "purple", fontSize: 18, margin: 10 }}
+        >{`Question: ${questionNum + 1}/${questions.length}`}</Text>
         <Text style={styles.titleText}>
           {questionNum < questions.length
             ? questions[[questionNum]].question
