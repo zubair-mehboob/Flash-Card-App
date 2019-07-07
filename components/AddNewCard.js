@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     height: 44,
     padding: 8,
     borderWidth: 1,
-    borderColor: "blue",
-    margin: 50
+    borderColor: "skyblue",
+    margin: 30,
+    borderRadius: 10
   },
   buttonStyle: {
     backgroundColor: "skyblue",
@@ -35,6 +36,10 @@ const styles = StyleSheet.create({
   txt: {
     color: "white",
     textAlign: "center"
+  },
+  titleText: {
+    fontSize: 30,
+    color: "skyblue"
   }
 });
 
@@ -56,12 +61,12 @@ class AddNewCard extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.container}>
-          <Text>What is the question?</Text>
+          <Text style={styles.titleText}>What is the question?</Text>
           <TextInput
             style={styles.input}
             onChangeText={question => this.setState({ question })}
           />
-          <Text>What is the answer?</Text>
+          <Text style={styles.titleText}>What is the answer?</Text>
           <TextInput
             style={styles.input}
             onChangeText={answer => this.setState({ answer })}
