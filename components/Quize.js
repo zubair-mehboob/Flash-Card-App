@@ -6,7 +6,8 @@ import { recieveDecks } from "../actions";
 
 class Quize extends Component {
   state = {
-    questionNum: 0
+    questionNum: 0,
+    answerFlag: false
   };
 
   nextQuestion = num => {
@@ -18,7 +19,8 @@ class Quize extends Component {
       console.log("Element: ", questions[questionNum]);
       this.setState(prevState => {
         return {
-          questionNum: prevState.questionNum + 1
+          questionNum: prevState.questionNum + 1,
+          answerFlag: false
         };
       });
     } else {
@@ -31,13 +33,25 @@ class Quize extends Component {
     const { decks } = this.props;
     const deckName = this.props.navigation.state.params.entryId;
     const questions = decks[deckName].questions;
-    const { questionNum } = this.state;
-    // console.log("from render", questionNum);
+    const { questionNum, answerFlag } = this.state;
+    console.log("from render", answerFlag);
 
     return (
       <View>
         <Text>Quize</Text>
-        <Text>{questions[[questionNum]].question}</Text>
+        <Text>
+          {questionNum < questions.length
+            ? questions[[questionNum]].question
+            : `End Of Quiz`}
+        </Text>
+        {!answerFlag ? (
+          <Button
+            onPress={() => this.setState({ answerFlag: !answerFlag })}
+            title="Answer"
+          />
+        ) : (
+          <Text>{questions[questionNum].answer}</Text>
+        )}
         <Button onPress={() => this.nextQuestion(questionNum)} title="next" />
       </View>
     );
