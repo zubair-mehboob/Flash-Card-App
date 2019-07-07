@@ -72,6 +72,12 @@ export const saveCard = card => {
     });
 };
 
+export const getQuestions = deck => {
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(results => JSON.parse(results))
+    .then(results => results[deck].questions);
+};
+
 // export const removeItemValue = () => {
 //   try {
 //     AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
