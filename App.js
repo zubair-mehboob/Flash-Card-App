@@ -14,6 +14,8 @@ import DeckView from "./components/DeckView";
 import { Provider, connect } from "react-redux";
 import { createStore } from "redux";
 import reducer from "./reducers";
+import AddNewCard from "./components/AddNewCard";
+import Quize from "./components/Quize";
 
 const store = createStore(reducer);
 export default function App() {
@@ -37,7 +39,7 @@ const Home = createBottomTabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      tabBarLabel: "Home",
+      tabBarLabel: "DECKS",
       tabBarIcon: ({ tintColor }) => (
         <MaterialCommunityIcons name="cards" size={24} color={tintColor} />
       )
@@ -58,7 +60,7 @@ const MainNavigator = createStackNavigator({
   DeckList: {
     screen: Home,
     navigationOptions: {
-      tabBarLabel: "Home",
+      tabBarLabel: "DECKS",
       tabBarIcon: ({ tintColor }) => (
         <MaterialCommunityIcons name="cards" size={24} color={tintColor} />
       )
@@ -67,10 +69,39 @@ const MainNavigator = createStackNavigator({
   DeckView: {
     screen: DeckView,
     navigationOptions: {
-      title: "Deck Indo",
+      title: "Deck Info",
       headerTinitColor: white,
       headerStyle: {
-        backgroundColor: purple
+        backgroundColor: "skyblue"
+      },
+      headerTitleStyle: {
+        color: white
+      }
+    }
+  },
+  AddNewCard: {
+    screen: AddNewCard,
+    navigationOptions: {
+      title: "Add Card",
+      headerTinitColor: white,
+      headerStyle: {
+        backgroundColor: "skyblue"
+      },
+      headerTitleStyle: {
+        color: white
+      }
+    }
+  },
+  Quize: {
+    screen: Quize,
+    navigationOptions: {
+      title: "Quize",
+      headerTinitColor: white,
+      headerStyle: {
+        backgroundColor: "skyblue"
+      },
+      headerTitleStyle: {
+        color: white
       }
     }
   }

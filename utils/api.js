@@ -39,7 +39,7 @@ export function getDecks(deck) {
       AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(InitialData));
       return InitialData;
     } else {
-      JSON.parse(result);
+      return JSON.parse(result);
     }
   });
 }
@@ -47,3 +47,36 @@ export function getDecks(deck) {
 export const getData = () => {
   return InitialData;
 };
+
+export const saveDeckTitle = title => {
+  return AsyncStorage.mergeItem(
+    FLASHCARD_STORAGE_KEY,
+    JSON.stringify({
+      [title]: {
+        title: title,
+        questions: []
+      }
+    })
+  );
+};
+
+export const saveCard = card => {
+  const { question, answer, correctAnswer, deck } = card;
+
+  return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY)
+    .then(results => JSON.parse(results))
+    .then(results => {
+      results[deck].questions.push({ question, answer, correctAnswer });
+      AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(results));
+      return results;
+    });
+};
+
+// export const removeItemValue = () => {
+//   try {
+//     AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
+//     return InitialData;
+//   } catch (exception) {
+//     return false;
+//   }
+// };

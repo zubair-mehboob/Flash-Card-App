@@ -12,7 +12,10 @@ export const deck = (state = {}, action) => {
 
       return {
         ...state,
-        newDeck
+        [action.deck]: {
+          title: action.deck,
+          questions: []
+        }
       };
     case RECIEVE_DECKS:
       return {
