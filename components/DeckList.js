@@ -8,6 +8,7 @@ import { recieveDecks } from "../actions";
 class DeckList extends Component {
   state = {};
   componentDidMount() {
+    //removeItemValue();
     getDecks().then(decks => {
       this.props.recieveAllDecks(decks);
     });
@@ -53,7 +54,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: 10,
+    backgroundColor: "#ffe"
   },
   titleText: {
     fontSize: 30,

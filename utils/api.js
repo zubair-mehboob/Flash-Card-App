@@ -78,11 +78,11 @@ export const getQuestions = deck => {
     .then(results => results[deck].questions);
 };
 
-// export const removeItemValue = () => {
-//   try {
-//     AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
-//     return InitialData;
-//   } catch (exception) {
-//     return false;
-//   }
-// };
+export const removeItemValue = () => {
+  try {
+    AsyncStorage.removeItem(FLASHCARD_STORAGE_KEY);
+    return InitialData;
+  } catch (exception) {
+    return false;
+  }
+};

@@ -71,6 +71,15 @@ class AddNewCard extends Component {
             style={styles.input}
             onChangeText={answer => this.setState({ answer })}
           />
+          <Text style={styles.titleText}>
+            Is this correct answer? Write true or false only
+          </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={correctAnswer =>
+              this.setState({ correctAnswer: correctAnswer.toLowerCase() })
+            }
+          />
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => this.submitCard(deckName)}

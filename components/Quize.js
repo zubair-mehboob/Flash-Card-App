@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
 import { getDecks } from "../utils/api";
 import { connect } from "react-redux";
 import { recieveDecks } from "../actions";
@@ -7,24 +7,31 @@ import { recieveDecks } from "../actions";
 class Quize extends Component {
   state = {
     questionNum: 0,
-    answerFlag: false
+    answerFlag: false,
+
+    score: 0
   };
 
-  nextQuestion = num => {
+  nextQuestion = (num, userGues) => {
     const { decks } = this.props;
     const deckName = this.props.navigation.state.params.entryId;
     const questions = decks[deckName].questions;
     const { questionNum } = this.state;
     if (questionNum < questions.length) {
-      console.log("Element: ", questions[questionNum]);
+      console.log("CorrectAnswer: ", questions[questionNum].correctAnswer);
+      console.log("UserGues: ", userGues);
       this.setState(prevState => {
         return {
           questionNum: prevState.questionNum + 1,
-          answerFlag: false
+          answerFlag: false,
+          score:
+            userGues === questions[questionNum].correctAnswer
+              ? prevState.score + 1
+              : prevState.score
         };
       });
     } else {
-      console.log("Questions End");
+      //console.log("Questions End");
     }
     // console.log(questions);
   };
@@ -33,26 +40,42 @@ class Quize extends Component {
     const { decks } = this.props;
     const deckName = this.props.navigation.state.params.entryId;
     const questions = decks[deckName].questions;
-    const { questionNum, answerFlag } = this.state;
-    console.log("from render", answerFlag);
+    const { questionNum, answerFlag, score } = this.state;
+    console.log("from render score", score);
 
     return (
-      <View>
-        <Text>Quize</Text>
-        <Text>
+      <View style={styles.container}>
+        <Text style={styles.titleText}>
           {questionNum < questions.length
             ? questions[[questionNum]].question
             : `End Of Quiz`}
         </Text>
         {!answerFlag ? (
-          <Button
+          <TouchableOpacity
             onPress={() => this.setState({ answerFlag: !answerFlag })}
-            title="Answer"
-          />
+          >
+            <Text style={{ color: "blue", fontSize: 20, margin: 10 }}>
+              Answer
+            </Text>
+          </TouchableOpacity>
         ) : (
-          <Text>{questions[questionNum].answer}</Text>
+          <Text style={{ color: "red", fontStyle: "italic", fontSize: 20 }}>
+            {questions[questionNum].answer}
+          </Text>
         )}
-        <Button onPress={() => this.nextQuestion(questionNum)} title="next" />
+
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => this.nextQuestion(questionNum, "true")}
+        >
+          <Text style={styles.txt}>Correct</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyleDanger}
+          onPress={() => this.nextQuestion(questionNum, "false")}
+        >
+          <Text style={styles.txt}>Incorrect</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -62,5 +85,36 @@ const mapStateToProps = decks => {
     decks
   };
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10
+  },
+  buttonStyle: {
+    backgroundColor: "skyblue",
+    margin: 10,
+    padding: 10,
+    width: 200
+  },
+  buttonStyleDanger: {
+    margin: 10,
+    padding: 10,
+    width: 200,
+    backgroundColor: "red"
+  },
+  txt: {
+    color: "white",
+    textAlign: "center"
+  },
+  titleText: {
+    fontSize: 40,
+    color: "skyblue",
+    textAlign: "center"
+  }
+});
 
 export default connect(mapStateToProps)(Quize);
