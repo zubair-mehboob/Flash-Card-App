@@ -69,7 +69,7 @@ class Quize extends Component {
             onPress={() => this.setState({ answerFlag: !answerFlag })}
           >
             <Text style={{ color: "blue", fontSize: 20, margin: 10 }}>
-              Answer
+              Show Answer
             </Text>
           </TouchableOpacity>
         ) : (

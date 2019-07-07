@@ -15,8 +15,10 @@ class DeckView extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>{decks[deck].title}</Text>
-        <Text>{decks[deck].questions.length}</Text>
+        <Text style={styles.titleText}>{decks[deck].title}</Text>
+        <Text style={{ fontSize: 20, color: "purple" }}>
+          {`Cards: ${decks[deck].questions.length}`}
+        </Text>
         <TouchableOpacity
           style={styles.buttonStyle}
           title="Add Card"
@@ -55,6 +57,11 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "white",
+    textAlign: "center"
+  },
+  titleText: {
+    fontSize: 40,
+    color: "skyblue",
     textAlign: "center"
   }
 });

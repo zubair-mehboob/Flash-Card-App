@@ -5,16 +5,23 @@ import { connect } from "react-redux";
 class Result extends Component {
   state = {};
   render() {
-    const score = this.props.navigation.state.params.entryId;
-    const totalQuestions = this.props.navigation.state.params.questionLength;
+    let obtainMarks = this.props.navigation.state.params.entryId;
+    let totalMarks = this.props.navigation.state.params.questionLength;
+    obtainMarks = obtainMarks * 100;
+    totalMarks = totalMarks * 100;
+    const score = Math.round((obtainMarks / totalMarks) * 100);
 
     return (
       <View style={styles.container}>
+        <Text style={styles.titleText}>
+          {score > 50
+            ? "Congratulation you have passed exam"
+            : "Sorry you have failed"}
+        </Text>
         <Text style={styles.titleText}>Your Score Is</Text>
         <Text style={{ fontSize: 40, textAlign: "center", color: "navy" }}>
-          {score}
+          {`${score}% `}
         </Text>
-        <Text>{totalQuestions}</Text>
       </View>
     );
   }
