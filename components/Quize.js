@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
-import { getDecks } from "../utils/api";
+import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
+
 import { connect } from "react-redux";
-import { recieveDecks } from "../actions";
 
 class Quize extends Component {
   state = {
@@ -16,8 +15,8 @@ class Quize extends Component {
     const { decks } = this.props;
     const deckName = this.props.navigation.state.params.entryId;
     const questions = decks[deckName].questions;
-    const { questionNum } = this.state;
-    if (questionNum < questions.length) {
+    const { questionNum, score } = this.state;
+    if (questionNum < questions.length - 1) {
       console.log("CorrectAnswer: ", questions[questionNum].correctAnswer);
       console.log("UserGues: ", userGues);
       this.setState(prevState => {
@@ -31,6 +30,21 @@ class Quize extends Component {
         };
       });
     } else {
+      console.log("in else");
+      this.setState(prevState => {
+        return {
+          answerFlag: false,
+          score:
+            userGues === questions[questions.length - 1].correctAnswer
+              ? prevState.score + 1
+              : prevState.score
+        };
+      });
+
+      this.props.navigation.navigate("Result", {
+        entryId: this.state.score,
+        questionLength: decks[deckName].questions.length
+      });
       //console.log("Questions End");
     }
     // console.log(questions);

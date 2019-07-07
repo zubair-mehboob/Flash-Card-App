@@ -16,6 +16,7 @@ import { createStore } from "redux";
 import reducer from "./reducers";
 import AddNewCard from "./components/AddNewCard";
 import Quize from "./components/Quize";
+import Result from "./components/Result";
 
 const store = createStore(reducer);
 export default function App() {
@@ -96,6 +97,19 @@ const MainNavigator = createStackNavigator({
     screen: Quize,
     navigationOptions: {
       title: "Quize",
+      headerTinitColor: white,
+      headerStyle: {
+        backgroundColor: "skyblue"
+      },
+      headerTitleStyle: {
+        color: white
+      }
+    }
+  },
+  Result: {
+    screen: Result,
+    navigationOptions: {
+      title: "Result",
       headerTinitColor: white,
       headerStyle: {
         backgroundColor: "skyblue"
