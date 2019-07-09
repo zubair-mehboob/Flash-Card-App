@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 class Result extends Component {
   state = {};
   render() {
-    let obtainMarks = this.props.navigation.state.params.entryId;
+    let obtainMarks = this.props.navigation.state.params.score;
     let totalMarks = this.props.navigation.state.params.questionLength;
     const deckName = this.props.navigation.state.params.deckName;
     obtainMarks = obtainMarks * 100;

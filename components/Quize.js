@@ -42,7 +42,8 @@ class Quize extends Component {
       });
 
       this.props.navigation.navigate("Result", {
-        entryId: this.state.score,
+        entryId: null,
+        score: score,
         questionLength: decks[deckName].questions.length,
         deckName: deckName
       });
